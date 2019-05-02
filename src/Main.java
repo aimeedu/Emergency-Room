@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.PriorityQueue;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
 
 public class Main{
   public static void main(String args[]) throws Exception{
@@ -15,22 +16,20 @@ public class Main{
 		Scanner neuro = new Scanner(new File(args[3])).useDelimiter("\\n");
 
 		Set<String> cd = new HashSet<>();
+		Set<String> cc = new HashSet<>();
+		Set<String> nr = new HashSet<>();
+
 		while(cardiac.hasNext()){
 			cd.add(cardiac.next());
 		}
-		System.out.println(cd.size());
-
-		Set<String> cc = new HashSet<>();
 		while(cancer.hasNext()){
 			cc.add(cancer.next());
 		}
-
-		Set<String> nr = new HashSet<>();
 		while(neuro.hasNext()){
 			nr.add(neuro.next());
 		}
 
-
+		int id = 1;
 		//input prasing the files
 		while(patient.hasNext()){
 			String p = patient.next();
@@ -48,42 +47,50 @@ public class Main{
 			int oxy = Integer.parseInt(arr[10].replaceAll("%",""));
 			int painLevel = Integer.parseInt(arr[11].replaceAll("-","-1"));
 
-			String[] med = new String[7];
+			ArrayList<String> med = new ArrayList<>();
 			for(int i = 12; i < arr.length; i++){
-				med[i-12] = arr[i];
+				med.add(arr[i]);
 			}
 			//create new Patient
 			Patient pt = new Patient(name,age,gender,complaint,alert,heart,systolic,diastolic,resp,temp,oxy,painLevel,med);
-			for(int j = 0; j < med.length;j++){
-				if(cd.contains(med[j])){
+			pt.setID(id);
+			// System.out.println(pt.getAlert().getClass().getSimpleName());
+			//assign Triage Level
+			pt.assignTriageLevel();
+			// if(pt.getAlert() == "V"){
+			// 	pt.setTriage(6);
+			// }
+
+			//assignDoctor
+			for(int j = 0; j < med.size();j++){
+				if(cd.contains(med.get(j))){
 					pt.setDoctor("Cardiologist");
 				}
-				if(cc.contains(med[j])){
+				if(cc.contains(med.get(j))){
 					pt.setDoctor("Oncologist");
 				}
-				if(nr.contains(med[j])){
+				if(nr.contains(med.get(j))){
 					pt.setDoctor("Neurologist");
 				}
 				else {
 					break;
 				}
 			}
-			// pt.assignDoctor();
 			//add to the queue.
+			pt.setStart(System.currentTimeMillis());
 			q.add(pt);
-
-			// System.out.println("------");
-			// System.out.println(name + " : " + painLevel );
-
+			id++;
 		}
 
-		int count = 0;
-
+		int count = 1;
 		while(!q.isEmpty()){
-			System.out.println(q.remove());
-			// q.remove();
+			System.out.println(count);
+			q.peek().setEnd(System.currentTimeMillis());
+			q.peek().setWaiting();
+			System.out.println(q.poll());
+			// q.poll();
+			// q.pt.setEnd(System.currentTimeMillis());
 			count++;
-
 		}
 
 
