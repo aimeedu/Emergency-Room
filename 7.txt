@@ -1,0 +1,12 @@
+Carrie Conner
+25, Female, Difficulty Walking
+2
+Neurologist
+10ms
+104 Tachycardia
+113/75 Normal
+16 Normal
+96.1 No
+92% Low
+[Oxcarbazepine, Eslicarbazepine]
+

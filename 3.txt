@@ -1,0 +1,12 @@
+Ken	Jefferson
+60, Male, Unresponsive
+1
+N/A
+7ms
+44 Bradycardia
+100/50 Hypotension
+10 Bradypnea
+104.4 Fever
+81% Low
+[-]
+

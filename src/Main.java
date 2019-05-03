@@ -4,6 +4,8 @@ import java.util.PriorityQueue;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.ArrayList;
+import java.io.Serializable;
+import java.io.ObjectOutputStream;
 
 public class Main{
   public static void main(String args[]) throws Exception{
@@ -38,7 +40,7 @@ public class Main{
 			int age = Integer.parseInt(arr[1]);
 			String gender = arr[2];
 			String complaint = arr[3];
-			String alert = arr[4];
+			char alert = arr[4].charAt(0);
 			int heart = Integer.parseInt(arr[5]);
 			int systolic = Integer.parseInt(arr[6]);
 			int diastolic = Integer.parseInt(arr[7]);
@@ -57,9 +59,6 @@ public class Main{
 			// System.out.println(pt.getAlert().getClass().getSimpleName());
 			//assign Triage Level
 			pt.assignTriageLevel();
-			// if(pt.getAlert() == "V"){
-			// 	pt.setTriage(6);
-			// }
 
 			//assignDoctor
 			for(int j = 0; j < med.size();j++){
@@ -84,17 +83,13 @@ public class Main{
 
 		int count = 1;
 		while(!q.isEmpty()){
-			System.out.println(count);
+			// System.out.println(count);
 			q.peek().setEnd(System.currentTimeMillis());
 			q.peek().setWaiting();
-			System.out.println(q.poll());
-			// q.poll();
-			// q.pt.setEnd(System.currentTimeMillis());
+			q.peek().saveDataInFile(count);
+			// System.out.println(q.poll());
+			q.poll();
 			count++;
 		}
-
-
-		//output the file;
 	}
-
 }

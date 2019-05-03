@@ -1,0 +1,12 @@
+Theresa Ortega
+55, Female, Left Arm Pain
+1
+Cardiologist
+6ms
+120 Tachycardia
+100/55 Hypotension
+20 Normal
+99.2 Fever
+95% Normal
+[Amlodipine, Diltiazem, Fosinopril]
+

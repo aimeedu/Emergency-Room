@@ -1,19 +1,21 @@
 import java.io.*;
 import java.util.*;
 import java.util.ArrayList;
+import java.io.Serializable;
+import java.io.PrintWriter;
 
-public class Patient implements Comparable<Patient>{
-	private String name, gender, complaint, alert, doctor;
+public class Patient implements Serializable, Comparable<Patient>{
+	private String name, gender, complaint, doctor;
 	private int age, heart, systolic, diastolic, resp, oxy, painLevel, triageLevel,id;
 	private float temp;
-
+	private char alert;
 	private long start, end, waiting;
 	private ArrayList<String> med;
 
 	public Patient(){
 	}
 
-	public Patient(String name, int age, String gender, String complaint, String alert, int heart, int systolic, int diastolic, int resp, float temp, int oxy, int painLevel, ArrayList<String> med){
+	public Patient(String name, int age, String gender, String complaint, char alert, int heart, int systolic, int diastolic, int resp, float temp, int oxy, int painLevel, ArrayList<String> med){
 		this.name = name;
 		this.age = age;
 		this.gender = gender;
@@ -29,14 +31,13 @@ public class Patient implements Comparable<Patient>{
 		this.med = med;
 		this.doctor = "N/A";
 		this.start = System.currentTimeMillis();
-
 	}
 
 	// getter
 	public String getName(){
 		return this.name;
 	}
-	public String getAlert(){
+	public char getAlert(){
 		return this.alert;
 	}
 	public int getAge(){
@@ -66,7 +67,6 @@ public class Patient implements Comparable<Patient>{
 	public float getTemp(){
 		return this.temp;
 	}
-
 	public String getDoctor(){
 		return this.doctor;
 	}
@@ -96,8 +96,8 @@ public class Patient implements Comparable<Patient>{
 
 	// classify
 	public String readHR(int h){
-		if(h>150 || h<30) return "Cardiac Arrest";
-		else if(h<60) return "Bradycardia";
+		// if(h>150 || h<30) return "Cardiac Arrest";
+		if(h<60) return "Bradycardia";
 		else if(h>100) return "Tachycardia";
 		else return "Normal";
 	}
@@ -136,37 +136,46 @@ public class Patient implements Comparable<Patient>{
 	}
 
 	public void assignTriageLevel(){
-		if(this.alert == "V"){
-			this.triageLevel = 1000;
-		}else{
-			this.triageLevel = 9;
+		if(this.heart>150 || this.heart<30 ||this.systolic<90 || this.diastolic<60|| this.temp>105 || this.oxy<90 || this.resp<6 || this.alert == 'U'){
+			this.triageLevel = 1;
 		}
-
-		// else if(this.heart>150 || this.heart<30 ||this.systolic<90 || this.diastolic<60|| this.temp>105 || this.oxy<90 || this.resp<6 || this.alert == "U"){
-		// 	this.triageLevel = 1;
-		// }
-		// else if(this.heart>100 || this.heart<60 ||this.systolic>140 || this.diastolic>90 || (this.oxy>90 && this.oxy<95) || this.resp<16 || this.resp>20 || this.alert == "V" || this.alert == "P"){
-		// 	this.triageLevel = 2;
-		// }else{
-		// 	this.triageLevel = 3;
-		// }
+		else if(this.heart>100 || this.heart<60 ||this.systolic>140 || this.diastolic>90 || (this.oxy>90 && this.oxy<95) || this.resp<16 || this.resp>20 || this.alert == 'V' || this.alert == 'P'){
+			this.triageLevel = 2;
+		}else{
+			this.triageLevel = 3;
+		}
 	}
+
+	public void saveDataInFile(int count) throws IOException {
+		String fileName = String.format("%s.txt", count);
+		PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+		// writer.println(this.name);
+		// writer.println(this.age);
+		// writer.println(this.name);
+		// writer.println(this.age);
+		// writer.println(this.name);
+		// writer.println(this.age);
+		// writer.println(this.name);
+		// writer.println(this.age);
+		// writer.println(this.name);
+		// writer.println(this.age);
+		// writer.println(this.name);
+		writer.println(this);
+		writer.close();
+ 	}
 
 	public String toString(){
 		return this.name + "\n"
 			+ this.age +  ", " + this.gender + ", " + this.complaint + "\n"
-			+ this.doctor + "\n"
 			+ this.triageLevel + "\n"
-			// + this.start + "\n"
-			// + this.end + "\n"
+			+ this.doctor + "\n"
 			+ this.waiting + "ms" + "\n"
-
 			+ getHR() + " " + readHR(this.heart) +  "\n"
 			+ getSystolic() + "/" + getDiastolic() + " " +readBP(this.systolic, this.diastolic)+ "\n"
 			+ getResp() + " " + readRR(this.resp) + "\n"
 			+ getTemp()  + " " + readTemp(this.temp) + "\n"
 			+ getSO2() + "% " + readSO2(this.oxy)+ "\n"
-			+ this.alert + "\n"
+			// + this.alert + "\n"
 			+ this.med.toString() + "\n";
 	}
 }
