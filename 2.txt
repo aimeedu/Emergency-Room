@@ -2,7 +2,7 @@ Morris Love
 46, Male, Chest Pain
 1
 Cardiologist
-7ms
+8ms
 153 Tachycardia
 150/45 Hypertension
 26 Tachypnea

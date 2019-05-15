@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.ObjectOutputStream;
 
-public class Main{
+public class Z23628652{
   public static void main(String args[]) throws Exception{
 
 		PriorityQueue<Patient> q = new PriorityQueue<>();

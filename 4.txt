@@ -2,7 +2,7 @@ Theresa Ortega
 55, Female, Left Arm Pain
 1
 Cardiologist
-6ms
+7ms
 120 Tachycardia
 100/55 Hypotension
 20 Normal

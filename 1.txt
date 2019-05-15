@@ -2,7 +2,7 @@ Ernesto	Silva
 19, Male, Blanching Rash
 1
 N/A
-4ms
+3ms
 56 Bradycardia
 106/67 Normal
 16 Normal

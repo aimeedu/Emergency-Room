@@ -2,7 +2,7 @@ Beth Long
 45, Male, Stomach Pain
 1
 N/A
-6ms
+7ms
 100 Normal
 120/56 Hypotension
 16 Normal
